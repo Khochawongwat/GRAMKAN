@@ -6,7 +6,7 @@ from einops import einsum
 
 
 class GRAMLayer(nn.Module):
-    def __init__(self, in_channels, out_channels, degrees=3, act=nn.SiLU(), bias=False):
+    def __init__(self, in_channels, out_channels, degrees=4, act=nn.SiLU(), bias=True):
         super(GRAMLayer, self).__init__()
 
         self.in_channels = in_channels
@@ -26,6 +26,9 @@ class GRAMLayer(nn.Module):
 
         self.base_weights = nn.Parameter(torch.zeros(out_channels, in_channels))
 
+        if self.bias:
+            self.bias_weights = nn.Parameter(torch.zeros(out_channels))
+
         self.init_weights()
 
     def init_weights(self):
@@ -35,13 +38,12 @@ class GRAMLayer(nn.Module):
             std=1.0 / (self.in_channels * (self.degrees + 1.0)),
         )
 
-        nn.init.kaiming_uniform_(
-            self.grams_basis_weights, mode="fan_out", nonlinearity="linear"
-        )
+        nn.init.xavier_uniform_(self.grams_basis_weights)
 
-        nn.init.kaiming_uniform_(
-            self.base_weights, mode="fan_out", nonlinearity="linear"
-        )
+        nn.init.xavier_uniform_(self.base_weights)
+
+        if self.bias:
+            nn.init.zeros_(self.bias_weights)
 
     def beta(self, n, m):
         return (
@@ -50,11 +52,14 @@ class GRAMLayer(nn.Module):
             * self.beta_weights[n]
         )
 
-    @lru_cache(maxsize=32)
+    @lru_cache(maxsize=256)
     def gram_poly(self, x, degree):
+
         p0 = x.new_ones(x.size())
+
         if degree == 0:
             return p0.unsqueeze(-1)
+
         p1 = x
         grams_basis = [p0, p1]
 
@@ -79,6 +84,8 @@ class GRAMLayer(nn.Module):
             "b l d, l o d -> b o",
         )
 
-        y = self.act(self.norm(y + basis))
+        y = self.norm(y + basis).squeeze(0)
+
+        y = self.act(y + self.bias_weights if self.bias else y)
 
         return y
