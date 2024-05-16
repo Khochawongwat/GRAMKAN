@@ -1,6 +1,10 @@
-Shifted Discrete Chebyshev Net is inspired by ChebyKAN by Synodic Month https://github.com/SynodicMonth/ChebyKAN where classical Chebyshev polynomials are used inplace of Bsplines. This repository will use Shifted Discrete Chebychev Polynomials (SDCP) over the MNIST dataset.
+GRAM is inspired by ChebyKAN by Synodic Month https://github.com/SynodicMonth/ChebyKAN where classical Chebyshev polynomials are used inplace of Bsplines. This repository will be using Grams Polynomial with an added basis layer with SiLU.
 
-This study is to do establish a benchmark over traditional KAN, ChebyKAN, and our SDCPKAN. Comparisons between the convergence, and number of parameters, accuracy of each model will be made. 
+**DISCLAIMER**
+Currently running tests so GRAM will be subjected to change.
 
-"A COMPARATIVE APPROACH FOR TIME-DELAY FRACTIONAL OPTIMAL CONTROL PROBLEMS: DISCRETE VERSUS CONTINUOUS CHEBYSHEV POLYNOMIALS" By Leila Moradi and Fakhrodin Mohammadi, January 2020,
-https://onlinelibrary.wiley.com/doi/pdf/10.1002/asjc.1858
+**Benchmarks** 
+*Other benchmarks are coming soon.
+GRAM vs MLP over 10 epochs
+![1231231](https://github.com/Khochawongwat/GRAMKAN/assets/86607408/f7489de1-1fe9-469d-aca9-36dfd050964b)
+![output1231231](https://github.com/Khochawongwat/GRAMKAN/assets/86607408/aec8357e-f85a-4298-b228-08790160e073)
