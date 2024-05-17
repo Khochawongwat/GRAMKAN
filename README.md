@@ -1,4 +1,4 @@
-# GRAM: KAN meets Gram Polynomials
+# GRAM: KAN Meets Gram Polynomials
 
 GRAM is inspired by Kolmogorov-Arnold Networks ([KAN](https://github.com/KindXiaoming/pykan)) alternatives like [TorchKAN](https://github.com/1ssb/torchkan) and [ChebyKAN](https://github.com/SynodicMonth/ChebyKAN). GRAM introduces a simplified version of the KAN model but leveraging the simplicity of Gram polynomial transformations. What sets it apart from other alternatives is its unique characteristic of being discrete. Unlike other polynomials that are defined on a continuous interval, Gram polynomials stand out as they are defined on a set of discrete points. This discrete nature of GRAM offers a novel way to handle discretized datasets like images, and text data.
 
