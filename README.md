@@ -13,11 +13,29 @@ GRAM is inspired by Kolmogorov-Arnold Networks ([KAN](https://github.com/KindXia
 
 ## Benchmarks
 In this repository, we conduct a series of benchmarks to evaluate different machine learning models on the MNIST dataset. The benchmarks are designed to test each model's accuracy, the number of parameters, and the speed of convergence over a total of 10 epochs.
-    In our benchmarking process, we ensure a level playing field by enforcing a uniform architecture across all models. This architecture comprises of the following hidden layers:
-    
+In our benchmarking process, we ensure a level playing field by enforcing a uniform architecture across all models. This architecture comprises of the following hidden layers:
+
 - [Layer I] (28 * 28, 32)
 - [Layer II] (32, 16)
 - [Layer III] (16, 10)
+  
+<p align="center">
+  <img src="https://github.com/Khochawongwat/GRAMKAN/assets/86607408/5e77c802-cc42-445d-9b45-34e64982e881">
+</p>
+<p align="center">Figure 1: Total Parameters</p>
+
+<p align="center">
+  <img src="https://github.com/Khochawongwat/GRAMKAN/assets/86607408/de6d81e5-3fed-4dfa-b166-759e7d00d8d2">
+</p>
+<p align="center">Figure 2: Accuracy</p>
+
+<p align="center">
+  <img src="https://github.com/Khochawongwat/GRAMKAN/assets/86607408/13731dd6-37a7-4e06-a914-1db53397db33">
+</p>
+<p align="center">Figure 3: Convergence Speed</p>
+
+
+
 
 ## Current Issues
 
