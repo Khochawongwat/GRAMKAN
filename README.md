@@ -18,19 +18,20 @@ In our benchmarking process, we ensure a level playing field by enforcing a unif
 - [Layer I] (28 * 28, 32)
 - [Layer II] (32, 16)
 - [Layer III] (16, 10)
-  
+
+
 <p align="center">
-  <img src="https://github.com/Khochawongwat/GRAMKAN/assets/86607408/5e77c802-cc42-445d-9b45-34e64982e881">
+  <img src="https://github.com/Khochawongwat/GRAMKAN/assets/86607408/8ebd72ca-3fae-481a-ac71-3c3943ff31c9">
 </p>
 <p align="center">Figure 1: Total Parameters</p>
 
 <p align="center">
-  <img src="https://github.com/Khochawongwat/GRAMKAN/assets/86607408/de6d81e5-3fed-4dfa-b166-759e7d00d8d2">
+  <img src="https://github.com/Khochawongwat/GRAMKAN/assets/86607408/5867f9ce-4ec2-42ab-8ad8-c2866b47d592">
 </p>
 <p align="center">Figure 2: Accuracy</p>
 
 <p align="center">
-  <img src="https://github.com/Khochawongwat/GRAMKAN/assets/86607408/13731dd6-37a7-4e06-a914-1db53397db33">
+  <img src="https://github.com/Khochawongwat/GRAMKAN/assets/86607408/602efc8e-696c-4969-b5e0-2f5d074dbe3d">
 </p>
 <p align="center">Figure 3: Convergence Speed</p>
 
