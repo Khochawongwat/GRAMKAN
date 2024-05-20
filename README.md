@@ -1,4 +1,4 @@
-# GRAM: KAN meets Gram Polynomials
+# GRAM: KAN Meets Gram Polynomials
 
 GRAM is inspired by Kolmogorov-Arnold Networks ([KAN](https://github.com/KindXiaoming/pykan)) alternatives like [TorchKAN](https://github.com/1ssb/torchkan) and [ChebyKAN](https://github.com/SynodicMonth/ChebyKAN). GRAM introduces a simplified version of the KAN model but leveraging the simplicity of Gram polynomial transformations. What sets it apart from other alternatives is its unique characteristic of being discrete. Unlike other polynomials that are defined on a continuous interval, Gram polynomials stand out as they are defined on a set of discrete points. This discrete nature of GRAM offers a novel way to handle discretized datasets like images, and text data.
 
@@ -13,11 +13,30 @@ GRAM is inspired by Kolmogorov-Arnold Networks ([KAN](https://github.com/KindXia
 
 ## Benchmarks
 In this repository, we conduct a series of benchmarks to evaluate different machine learning models on the MNIST dataset. The benchmarks are designed to test each model's accuracy, the number of parameters, and the speed of convergence over a total of 10 epochs.
-    In our benchmarking process, we ensure a level playing field by enforcing a uniform architecture across all models. This architecture comprises of the following hidden layers:
-    
+In our benchmarking process, we ensure a level playing field by enforcing a uniform architecture across all models. This architecture comprises of the following hidden layers:
+
 - [Layer I] (28 * 28, 32)
 - [Layer II] (32, 16)
 - [Layer III] (16, 10)
+
+
+<p align="center">
+  <img src="https://github.com/Khochawongwat/GRAMKAN/assets/86607408/8ebd72ca-3fae-481a-ac71-3c3943ff31c9">
+</p>
+<p align="center">Figure 1: Total Parameters</p>
+
+<p align="center">
+  <img src="https://github.com/Khochawongwat/GRAMKAN/assets/86607408/5867f9ce-4ec2-42ab-8ad8-c2866b47d592">
+</p>
+<p align="center">Figure 2: Accuracy</p>
+
+<p align="center">
+  <img src="https://github.com/Khochawongwat/GRAMKAN/assets/86607408/602efc8e-696c-4969-b5e0-2f5d074dbe3d">
+</p>
+<p align="center">Figure 3: Convergence Speed</p>
+
+
+
 
 ## Current Issues
 
