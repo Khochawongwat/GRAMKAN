@@ -19,6 +19,7 @@ In our benchmarking process, we ensure a level playing field by enforcing a unif
 - [Layer II] (32, 16)
 - [Layer III] (16, 10)
 
+Addition to the standard learning rate of 1e-3
 
 <p align="center">
   <img src="https://github.com/Khochawongwat/GRAMKAN/assets/86607408/8ebd72ca-3fae-481a-ac71-3c3943ff31c9">
