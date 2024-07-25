@@ -1,30 +1,18 @@
 from functools import lru_cache
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
-from einops import einsum
-
 
 class GRAMLayer(nn.Module):
-    def __init__(self, in_channels, out_channels, degrees = 3, act=nn.SiLU()):
+    def __init__(self, in_channels, out_channels, degrees = 3):
         super(GRAMLayer, self).__init__()
 
         self.in_channels = in_channels
         self.out_channels = out_channels
         self.degrees = degrees
 
-        self.act = act
-
-        self.norm = nn.LayerNorm(out_channels, dtype=torch.float32)
-
         self.beta_weights = nn.Parameter(torch.zeros(degrees + 1, dtype=torch.float32))
-
-        self.grams_basis_weights = nn.Parameter(
+        self.basis_weights = nn.Parameter(
             torch.zeros(in_channels, out_channels, degrees + 1, dtype=torch.float32)
-        )
-
-        self.base_weights = nn.Parameter(
-            torch.zeros(out_channels, in_channels, dtype=torch.float32)
         )
 
         self.init_weights()
@@ -36,9 +24,7 @@ class GRAMLayer(nn.Module):
             std=1.0 / (self.in_channels * (self.degrees + 1.0)),
         )
 
-        nn.init.xavier_uniform_(self.grams_basis_weights)
-
-        nn.init.xavier_uniform_(self.base_weights)
+        nn.init.xavier_uniform_(self.basis_weights)
 
     def beta(self, n, m):
         return (
@@ -46,38 +32,41 @@ class GRAMLayer(nn.Module):
         ) * self.beta_weights[n]
 
     @lru_cache(maxsize=128)
-    def gram_poly(self, x, degree):
+    def get_basis(self, x, degree):
         p0 = x.new_ones(x.size())
-
         if degree == 0:
             return p0.unsqueeze(-1)
-
         p1 = x
-        grams_basis = [p0, p1]
-
+        basis = [p0, p1]
         for i in range(2, degree + 1):
             p2 = x * p1 - self.beta(i - 1, i) * p0
-            grams_basis.append(p2)
+            basis.append(p2)
             p0, p1 = p1, p2
-
-        return torch.stack(grams_basis, dim=-1)
+        return torch.stack(basis, dim=-1)
 
     def forward(self, x):
-
-        basis = F.linear(self.act(x), self.base_weights)
-
         x = torch.tanh(x).contiguous()
-
-        grams_basis = self.act(self.gram_poly(x, self.degrees))
-
-        y = einsum(
-            grams_basis,
-            self.grams_basis_weights,
+        basis = self.get_basis(x, self.degrees)
+        y = torch.einsum(
             "b l d, l o d -> b o",
+            basis,
+            self.basis_weights            
+        )
+        y = y.view(-1, self.out_channels)
+        return y
+
+#Example that works for MNIST
+class GRAM(nn.Module):
+    def __init__(self):
+        super(GRAM, self).__init__()
+        self.layers = nn.Sequential(
+            GRAMLayer(28 * 28, 32, 4), 
+            nn.LayerNorm(32),
+            GRAMLayer(32, 16, 4), 
+            nn.LayerNorm(16),
+            GRAMLayer(16, 10, 4)
         )
 
-        y = self.act(self.norm(y + basis))
-
-        y = y.view(-1, self.out_channels)
-        
-        return y
+    def forward(self, x):
+        x = x.view(x.size(0), -1)
+        return self.layers(x)
